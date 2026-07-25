@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-coral-50: #FAECE7;
+  --color-coral-100: #F5C4B3;
+  --color-coral-200: #F0997B;
+  --color-coral-400: #D85A30;
+  --color-coral-600: #993C1D;
+  --color-coral-800: #712B13;
+  --color-coral-900: #4A1B0C;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-teal-50: #E1F5EE;
+  --color-teal-100: #9FE1CB;
+  --color-teal-200: #5DCAA5;
+  --color-teal-400: #1D9E75;
+  --color-teal-600: #0F6E56;
+  --color-teal-800: #085041;
+  --color-teal-900: #04342C;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-warmgray-50: #F1EFE8;
+  --color-warmgray-100: #D3D1C7;
+  --color-warmgray-200: #B4B2A9;
+  --color-warmgray-400: #888780;
+  --color-warmgray-600: #5F5E5A;
+  --color-warmgray-800: #444441;
+  --color-warmgray-900: #2C2C2A;
+
+  --color-canvas: #EDE7DC;
+  --color-canvas-card: #F7F3EA;
+
+  --font-heading: var(--font-sora);
+  --font-body: var(--font-manrope);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-warmgray-900);
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-canvas-card) inset;
+  -webkit-text-fill-color: var(--color-warmgray-900);
+  transition: background-color 5000s ease-in-out 0s;
 }

@@ -1,65 +1,156 @@
 import Image from "next/image";
+import Link from "next/link";
+import { fetchActiveListings } from "@/lib/listings";
+import PinIcon from "@/components/PinIcon";
+import PinScatter from "@/components/PinScatter";
+import SearchBar from "@/components/SearchBar";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
-export default function Home() {
+const steps = [
+  {
+    number: "01",
+    title: "Search by what matters",
+    description:
+      "Filter by real room types — single room, chamber and hall, self-contain — and the areas you actually know.",
+  },
+  {
+    number: "02",
+    title: "See the real cost upfront",
+    description:
+      "Rent, lease term, deposit, payment structure — all shown before you ever leave home.",
+  },
+  {
+    number: "03",
+    title: "Contact the landlord directly",
+    description:
+      "No agent middleman. Message on WhatsApp and arrange a viewing yourself.",
+  },
+];
+
+export default async function Home() {
+  const listings = await fetchActiveListings();
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <main>
+      <Header />
+
+      <section className="max-w-6xl mx-auto px-6 pt-16 pb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="max-w-xl">
+            <h1 className="font-heading font-bold text-4xl sm:text-5xl leading-tight mb-4">
+              Find your next place in Ghana
+            </h1>
+            <p className="text-warmgray-600 text-lg mb-8 leading-relaxed">
+              Search rooms and apartments by room type and area, with real
+              fees shown upfront — no wasted trips, no hidden agent charges.
+            </p>
+            <SearchBar />
+          </div>
+
+          <div className="relative h-80 lg:h-96 rounded-3xl overflow-hidden border border-warmgray-100">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/accra-hero.jpg"
+              alt="Accra, Ghana"
+              fill
+              priority
+              className="object-cover"
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <div className="absolute inset-0 bg-gradient-to-t from-teal-900/50 via-transparent to-transparent" />
+
+            <div className="absolute top-[20%] left-[22%] flex flex-col items-center gap-1">
+              <PinIcon size={18} color="#D85A30" />
+              <span className="text-[11px] text-canvas font-medium bg-teal-900/70 px-2 py-0.5 rounded-md">
+                Osu
+              </span>
+            </div>
+            <div className="absolute top-[55%] left-[62%] flex flex-col items-center gap-1">
+              <PinIcon size={16} color="#EDE7DC" />
+              <span className="text-[11px] text-canvas font-medium bg-teal-900/70 px-2 py-0.5 rounded-md">
+                East Legon
+              </span>
+            </div>
+          </div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-16 border-t border-warmgray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+          {steps.map((step) => (
+            <div key={step.number}>
+              <span className="text-coral-400 font-heading font-bold text-sm">
+                {step.number}
+              </span>
+              <h3 className="font-heading font-bold text-lg mt-2 mb-2">
+                {step.title}
+              </h3>
+              <p className="text-warmgray-600 text-sm leading-relaxed">
+                {step.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="max-w-6xl mx-auto px-6 py-16 border-t border-warmgray-100">
+        <div className="flex items-baseline justify-between mb-8">
+          <h2 className="font-heading font-bold text-2xl">
+            {listings.length} {listings.length === 1 ? "place" : "places"}{" "}
+            available now
+          </h2>
+          <Link
+            href="/listings"
+            className="text-teal-600 text-sm font-medium hover:text-teal-800"
+          >
+            View all →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {listings.slice(0, 6).map((listing, index) => (
+            <Link
+              key={listing.id}
+              href={`/listings/${listing.id}`}
+              className="bg-canvas-card border border-warmgray-100 rounded-2xl overflow-hidden hover:border-warmgray-200 transition-colors"
+            >
+              <div className="h-44 bg-warmgray-100 relative">
+                {listing.imageUrl && (
+                  <Image
+                    src={listing.imageUrl}
+                    alt={listing.title}
+                    fill
+                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    priority={index < 3}
+                    className="object-cover"
+                  />
+                )}
+                {listing.verified && (
+                  <span className="absolute top-2.5 left-2.5 bg-teal-900 text-teal-50 text-[11px] font-medium px-2.5 py-1 rounded-lg">
+                    verified
+                  </span>
+                )}
+              </div>
+              <div className="p-4">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <span className="font-medium text-sm">
+                    {listing.room_type_name}
+                  </span>
+                  <span className="text-coral-600 font-medium text-sm">
+                    GHS {listing.price.toLocaleString()}/mo
+                  </span>
+                </div>
+                <p className="text-warmgray-600 text-xs">
+                  {listing.area_name}, {listing.city} ·{" "}
+                  {listing.lease_term_years}{" "}
+                  {listing.lease_term_years === 1 ? "year" : "years"} lease
+                </p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <Footer />
+    </main>
   );
 }
