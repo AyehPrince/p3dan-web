@@ -31,8 +31,8 @@ export default function SignUpPage() {
     }
 
     if (!isPasswordValid(password)) {
-      setError("Please meet all password requirements below.");
       setPasswordFocused(true);
+      setError("Please meet all password requirements below.");
       return;
     }
 
@@ -45,7 +45,10 @@ export default function SignUpPage() {
     const { data, error } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName },
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
     setLoading(false);
 
@@ -55,6 +58,7 @@ export default function SignUpPage() {
     }
 
     if (data.session) {
+      // Confirmation is off in this environment — already signed in
       router.push("/");
       router.refresh();
     } else {
